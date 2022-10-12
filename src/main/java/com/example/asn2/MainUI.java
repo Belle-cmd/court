@@ -1,14 +1,12 @@
 package com.example.asn2;
 
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 
 import java.util.ArrayList;
@@ -40,6 +38,9 @@ public class MainUI extends BorderPane {
         dateContainer.getChildren().add(datePicker);
 
         courtGrid = new GridPane();
+        courtGrid.setHgap(25);
+        courtGrid.setPadding(new Insets(50,0,50,0));
+
         this.populateCourt(1);
         this.populateCourt(2);
         this.populateCourt(3);
@@ -75,8 +76,15 @@ public class MainUI extends BorderPane {
         timeArray.add("6:00 pm");
         timeArray.add("7:00 pm");
 
+        Label courtName = new Label("Court " + courtNum);
+        courtName.setFont(new Font("Helvetica", 25));
+        courtGrid.add(courtName, courtNum-1, 0);  // Add court name
+        GridPane.setHalignment(courtName, HPos.RIGHT);
+
         for (String time : timeArray) {
             Button btn = new Button(time);
+            btn.setPadding(new Insets(10, 20, 10, 20));
+            btn.setMaxWidth(Double.MAX_VALUE);
 
             // court -1 bc the parameter for court starts at 1 while the array starts at 0
             // indexOf(time)+1 bc the y coordinate of x,y in grid is the placeholder for the court number
