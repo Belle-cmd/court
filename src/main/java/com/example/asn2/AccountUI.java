@@ -1,5 +1,6 @@
 package com.example.asn2;
 
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -16,6 +17,7 @@ import java.util.Objects;
 public class AccountUI extends BorderPane {
     // Use to reference adding layouts dynamically
     private VBox mainContent;
+    private final double MAX_FONT_SIZE = 30;
     public AccountUI() {
         Button backBtn = new Button();
         ImageView leftArrowImg = new ImageView(
@@ -33,12 +35,14 @@ public class AccountUI extends BorderPane {
 
     public void addSlot(String time, int courtNum, String week) {
         VBox container = new VBox();
+        container.setPadding(new Insets(10));
         Label courtLbl = new Label("Court " + courtNum);
         courtLbl.setFont(new Font("Helvetica", 30));
         Label timeLbl = new Label(week + " at " + time);
         timeLbl.setFont(new Font("Helvetica", 15));
         container.getChildren().addAll(courtLbl, timeLbl);
         container.setStyle("-fx-background-color: rgba(111, 175, 252,0.5)");
+        container.setMaxWidth(300.0);
         mainContent.getChildren().add(container);
     }
 }
