@@ -6,17 +6,19 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class MainUI extends BorderPane {
+public class CourtUI extends BorderPane {
 
     // grid used to store court slots
     private GridPane courtGrid;
 
-    public MainUI() {
+    public CourtUI() {
         // widget for the top of the application where user information is
         HBox navContainer = new HBox();
         navContainer.setSpacing(20);
@@ -24,7 +26,12 @@ public class MainUI extends BorderPane {
 
         Label nameLbl = new Label("Ari");
         nameLbl.setFont(new Font("Helvetica", 30));
-        Button userBtn = new Button("User");
+        Button userBtn = new Button();
+        ImageView userImg = new ImageView(
+                Objects.requireNonNull(getClass().getResource("/user.png")).toExternalForm());
+        userImg.setFitHeight(20);  // set the size of the image
+        userImg.setFitWidth(20);
+        userBtn.setGraphic(userImg);  // add image to button
         userBtn.setFont(new Font("Helvetica", 15));
         navContainer.getChildren().addAll(nameLbl, userBtn);
         navContainer.setAlignment(Pos.TOP_RIGHT);

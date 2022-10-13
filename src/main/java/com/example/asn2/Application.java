@@ -7,8 +7,8 @@ public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) {
 //        LoginUI root = new LoginUI();
-//        MainUI root = new MainUI();
-        AccountUI root = new AccountUI();
+        CourtUI root = new CourtUI();
+//        AccountUI root = new AccountUI();
         Scene scene = new Scene(root, 750, 700);
         stage.setTitle("Assignment 2");
         stage.setScene(scene);
