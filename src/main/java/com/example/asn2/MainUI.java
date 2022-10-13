@@ -23,7 +23,7 @@ public class MainUI extends BorderPane {
         navContainer.setPadding(new Insets(20));
 
         Label nameLbl = new Label("Ari");
-        nameLbl.setFont(new Font("Helvetica", 15));
+        nameLbl.setFont(new Font("Helvetica", 30));
         Button userBtn = new Button("User");
         userBtn.setFont(new Font("Helvetica", 15));
         navContainer.getChildren().addAll(nameLbl, userBtn);
