@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 
+import java.time.LocalDate;
 import java.util.Objects;
 public class AccountUI extends BorderPane {
     public Stage mainStage;
@@ -42,17 +43,33 @@ public class AccountUI extends BorderPane {
         mainContent.setAlignment(Pos.CENTER);
         this.setCenter(mainContent);
         this.setStyle("-fx-background-color: white");
+
+        addSlot("7:00 am", 2, "Monday");
+        addSlot("8:00 am", 1, "Tuesday");
+        addSlot("10:00 am", 6, "Wednesday");
+        addSlot("1:00 pm", 4, "Thursday");
+        addSlot("5:00 pm", 4, "Friday");
+
+
+
     }
 
     public void addSlot(String time, int courtNum, String week) {
         VBox container = new VBox();
         container.setPadding(new Insets(10));
+
         Label courtLbl = new Label("Court " + courtNum);
         courtLbl.setFont(new Font("Helvetica", 30));
+
         Label timeLbl = new Label(week + " at " + time);
         timeLbl.setFont(new Font("Helvetica", 15));
-        container.getChildren().addAll(courtLbl, timeLbl);
-        container.setStyle("-fx-background-color: rgba(111, 175, 252,0.5)");
+
+        LocalDate date = LocalDate.now();
+        Label dateLbl = new Label(date.toString());
+        dateLbl.setFont(new Font("Helvetica", 15));
+
+        container.getChildren().addAll(courtLbl, dateLbl,timeLbl);
+        container.setStyle("-fx-background-color: rgb(237, 237, 237)");
         container.setMaxWidth(300.0);
         mainContent.getChildren().add(container);
     }

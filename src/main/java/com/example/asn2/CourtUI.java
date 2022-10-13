@@ -1,8 +1,10 @@
 package com.example.asn2;
 
+import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -72,6 +74,27 @@ public class CourtUI extends BorderPane implements ModelListener {
         mainContainer.getChildren().addAll(dateContainer, courtGrid);
         this.setCenter(mainContainer);
         this.setStyle("-fx-background-color: white");
+
+        Button n = getNodeByRowColumnIndex(1, 3);
+        assert n != null;
+        n.setStyle("-fx-background-color: rgb(104, 212, 158);");
+
+
+
+    }
+
+    public Button getNodeByRowColumnIndex (final int row, final int column) {
+        Button result = null;
+        ObservableList<Node> childrens = courtGrid.getChildren();
+
+        for (Node node : childrens) {
+            if(GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
+                result = (Button) node;
+                break;
+            }
+        }
+
+        return result;
     }
 
     /**
