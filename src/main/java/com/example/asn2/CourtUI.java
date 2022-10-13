@@ -3,20 +3,23 @@ package com.example.asn2;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class CourtUI extends BorderPane {
+public class CourtUI extends BorderPane implements ModelListener {
 
     // grid used to store court slots
     private GridPane courtGrid;
+    Stage mainStage;
 
     public CourtUI() {
         // widget for the top of the application where user information is
@@ -36,6 +39,13 @@ public class CourtUI extends BorderPane {
         navContainer.getChildren().addAll(nameLbl, userBtn);
         navContainer.setAlignment(Pos.TOP_RIGHT);
         this.setTop(navContainer);
+
+        userBtn.setOnAction(e -> {
+            AccountUI accountUI = new AccountUI();
+            accountUI.mainStage = mainStage;
+            Scene courtScene = new Scene(accountUI,  750, 700);
+            mainStage.setScene(courtScene);
+        });
 
 
         // setting up main layouts for the courts and date
@@ -98,5 +108,16 @@ public class CourtUI extends BorderPane {
             // indexOf(time)+1 bc the y coordinate of x,y in grid is the placeholder for the court number
             courtGrid.add(btn, courtNum-1, timeArray.indexOf(time)+1);  // populates each court
         }
+    }
+
+    public void setModel(Model model) {
+    }
+
+    public void setController(Controller controller) {
+    }
+
+    @Override
+    public void modelChanged() {
+
     }
 }

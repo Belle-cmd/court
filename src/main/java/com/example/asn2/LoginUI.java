@@ -4,14 +4,21 @@ package com.example.asn2;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
-public class LoginUI extends BorderPane {
+public class LoginUI extends BorderPane implements ModelListener {
+     Model model;
+     Controller controller;
+     Button signInBtn;
+     Stage mainStage;
 
     public LoginUI() {
         VBox root = new VBox();
@@ -31,19 +38,31 @@ public class LoginUI extends BorderPane {
         TextField password = new TextField();
         password.setPrefHeight(40);
         password.setFont(new Font("Helvetica", 20));
-        Button signInBtn = new Button("Sign in");
+        signInBtn = new Button("Sign in");
         signInBtn.setFont(new Font("Helvetica", 20));
-        signInBtn.setOnAction(this::handleSubmit);
+        signInBtn.setOnAction(e -> {
+            CourtUI court = new CourtUI();
+            court.mainStage = mainStage;
+            Scene courtScene = new Scene(court,  750, 700);
+            mainStage.setScene(courtScene);
+        });
 
         textVBox.getChildren().addAll(nsidLbl, nsid, passwordLbl, password);
         root.getChildren().addAll(textVBox, signInBtn);
         setCenter(root);
         root.setAlignment(Pos.CENTER);
         this.setStyle("-fx-background-color: white");
-
     }
 
-    private void handleSubmit(ActionEvent actionEvent) {
 
+    @Override
+    public void modelChanged() {}
+
+    public void setModel(Model newModel) {
+        this.model = newModel;
+    }
+
+    public void setController(Controller controller) {
+        this.controller = controller;
     }
 }

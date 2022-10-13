@@ -3,6 +3,7 @@ package com.example.asn2;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
@@ -15,6 +16,8 @@ import javafx.stage.Window;
 
 import java.util.Objects;
 public class AccountUI extends BorderPane {
+    public Stage mainStage;
+
     // Use to reference adding layouts dynamically
     private VBox mainContent;
     private final double MAX_FONT_SIZE = 30;
@@ -26,6 +29,13 @@ public class AccountUI extends BorderPane {
         leftArrowImg.setFitWidth(50);
         backBtn.setGraphic(leftArrowImg);  // set arrow png as the button's image
         this.setTop(backBtn);
+
+        backBtn.setOnAction(e -> {
+            CourtUI court = new CourtUI();
+            court.mainStage = mainStage;
+            Scene courtScene = new Scene(court,  750, 700);
+            mainStage.setScene(courtScene);
+        });
 
         // User's booked slots (main content of this page)
         mainContent = new VBox(10);
