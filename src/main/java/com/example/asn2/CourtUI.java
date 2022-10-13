@@ -61,6 +61,7 @@ public class CourtUI extends BorderPane {
         courtGrid.setAlignment(Pos.BOTTOM_CENTER);
         mainContainer.getChildren().addAll(dateContainer, courtGrid);
         this.setCenter(mainContainer);
+        this.setStyle("-fx-background-color: white");
     }
 
     /**

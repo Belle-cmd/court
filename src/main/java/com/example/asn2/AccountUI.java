@@ -31,6 +31,7 @@ public class AccountUI extends BorderPane {
         mainContent = new VBox(10);
         mainContent.setAlignment(Pos.CENTER);
         this.setCenter(mainContent);
+        this.setStyle("-fx-background-color: white");
     }
 
     public void addSlot(String time, int courtNum, String week) {

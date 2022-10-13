@@ -39,6 +39,8 @@ public class LoginUI extends BorderPane {
         root.getChildren().addAll(textVBox, signInBtn);
         setCenter(root);
         root.setAlignment(Pos.CENTER);
+        this.setStyle("-fx-background-color: white");
+
     }
 
     private void handleSubmit(ActionEvent actionEvent) {
