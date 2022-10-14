@@ -24,32 +24,6 @@ public class CourtUI extends BorderPane implements ModelListener, IModelListener
     Stage mainStage;
 
     public CourtUI() {
-        // widget for the top of the application where user information is
-        HBox navContainer = new HBox();
-        navContainer.setSpacing(20);
-        navContainer.setPadding(new Insets(20));
-
-        Label nameLbl = new Label("Ari");
-        nameLbl.setFont(new Font("Helvetica", 30));
-        Button userBtn = new Button();
-        ImageView userImg = new ImageView(
-                Objects.requireNonNull(getClass().getResource("/user.png")).toExternalForm());
-        userImg.setFitHeight(20);  // set the size of the image
-        userImg.setFitWidth(20);
-        userBtn.setGraphic(userImg);  // add image to button
-        userBtn.setFont(new Font("Helvetica", 15));
-        navContainer.getChildren().addAll(nameLbl, userBtn);
-        navContainer.setAlignment(Pos.TOP_RIGHT);
-        this.setTop(navContainer);
-
-        userBtn.setOnAction(e -> {
-            AccountUI accountUI = new AccountUI();
-            accountUI.mainStage = mainStage;
-            Scene courtScene = new Scene(accountUI,  750, 700);
-            mainStage.setScene(courtScene);
-        });
-
-
         // setting up main layouts for the courts and date
         VBox mainContainer = new VBox();
         HBox dateContainer = new HBox();
@@ -66,7 +40,6 @@ public class CourtUI extends BorderPane implements ModelListener, IModelListener
         this.populateCourt(4);
         this.populateCourt(5);
         this.populateCourt(6);
-
 
 
         dateContainer.setAlignment(Pos.TOP_CENTER);

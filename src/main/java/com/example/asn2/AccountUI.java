@@ -13,25 +13,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 
-public class AccountUI extends BorderPane implements ModelListener, IModelListener {
+public class AccountUI extends StackPane implements ModelListener, IModelListener {
     public Stage mainStage;
 
     public AccountUI() {
-        Button backBtn = new Button();
-        ImageView leftArrowImg = new ImageView(
-                Objects.requireNonNull(getClass().getResource("/leftArrow.png")).toExternalForm());
-        leftArrowImg.setFitHeight(40);  // set the size of the image
-        leftArrowImg.setFitWidth(50);
-        backBtn.setGraphic(leftArrowImg);  // set arrow png as the button's image
-        this.setTop(backBtn);
-
-        backBtn.setOnAction(e -> {
-            CourtUI court = new CourtUI();
-            court.mainStage = mainStage;
-            Scene courtScene = new Scene(court,  750, 700);
-            mainStage.setScene(courtScene);
-        });
-
         // User's booked slots (main content of this page)
         ArrayList<Slot> slotArray = new ArrayList<>();
 
@@ -46,7 +31,7 @@ public class AccountUI extends BorderPane implements ModelListener, IModelListen
 
         ObservableList<Slot> SlotObservableList = FXCollections.observableArrayList(slotArray);
         ListView<Slot> slotListView = new ListView<>(SlotObservableList);
-        this.setCenter(slotListView);
+        this.getChildren().add(slotListView);
     }
 
 

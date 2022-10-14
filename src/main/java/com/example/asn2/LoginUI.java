@@ -40,9 +40,9 @@ public class LoginUI extends BorderPane implements ModelListener, IModelListener
         signInBtn = new Button("Sign in");
         signInBtn.setFont(new Font("Helvetica", 20));
         signInBtn.setOnAction(e -> {
-            CourtUI court = new CourtUI();
-            court.mainStage = mainStage;
-            Scene courtScene = new Scene(court,  750, 700);
+            MainUI main = new MainUI();
+            main.mainStage = mainStage;
+            Scene courtScene = new Scene(main,  750, 700);
             mainStage.setScene(courtScene);
         });
 

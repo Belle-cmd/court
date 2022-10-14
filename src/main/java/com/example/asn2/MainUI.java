@@ -1,7 +1,16 @@
 package com.example.asn2;
 
-public class MvcManager {
-    public MvcManager() {
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+
+public class MainUI extends StackPane {
+    Stage mainStage;
+
+    public MainUI() {
+        AnchorPane root = new AnchorPane();
+
         // create MVC components
         LoginUI loginView = new LoginUI();
         CourtUI courtView = new CourtUI();
@@ -27,5 +36,15 @@ public class MvcManager {
         accountView.setController(controller);
 
         model.addSubscriber(courtView);
+
+        // set up the layout
+        AnchorPane.setTopAnchor(courtView, 40.0);
+        AnchorPane.setLeftAnchor(courtView, 10.0);
+        AnchorPane.setRightAnchor(accountView, 10.0);
+        AnchorPane.setTopAnchor(accountView, 10.0);
+        root.getChildren().addAll(courtView, accountView);
+        this.getChildren().add(root);
+
+        this.setStyle("-fx-background-color: white;");
     }
 }

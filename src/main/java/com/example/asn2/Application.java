@@ -7,7 +7,6 @@ public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) {
         LoginUI root = new LoginUI();
-        MvcManager mvcManager = new MvcManager();  // has mvc components
         root.mainStage = stage;
         Scene scene = new Scene(root, 750, 700);
         stage.setTitle("Assignment 2");
