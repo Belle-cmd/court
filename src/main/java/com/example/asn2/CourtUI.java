@@ -21,9 +21,15 @@ public class CourtUI extends BorderPane implements ModelListener, IModelListener
 
     // grid used to store court slots
     private GridPane courtGrid;
-    Stage mainStage;
+
+    InteractionModel iModel;
+
+    ArrayList<ButtonSlot> buttonSlots;
 
     public CourtUI() {
+        // initialize to store button slots for easier access
+        this.buttonSlots = new ArrayList<>();
+
         // setting up main layouts for the courts and date
         VBox mainContainer = new VBox();
         HBox dateContainer = new HBox();
@@ -48,27 +54,9 @@ public class CourtUI extends BorderPane implements ModelListener, IModelListener
         this.setCenter(mainContainer);
         this.setStyle("-fx-background-color: white");
 
-//        Button n = getNodeByRowColumnIndex(1, 3);
-//        assert n != null;
-//        n.setStyle("-fx-background-color: rgb(104, 212, 158);");
-
-
 
     }
 
-    public Button getNodeByRowColumnIndex (final int row, final int column) {
-        Button result = null;
-        ObservableList<Node> childrens = courtGrid.getChildren();
-
-        for (Node node : childrens) {
-            if(GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
-                result = (Button) node;
-                break;
-            }
-        }
-
-        return result;
-    }
 
     /**
      * Populate the grid based on the specified court number
@@ -96,9 +84,8 @@ public class CourtUI extends BorderPane implements ModelListener, IModelListener
         GridPane.setHalignment(courtName, HPos.RIGHT);
 
         for (String time : timeArray) {
-            Button btn = new Button(time);
-            btn.setPadding(new Insets(10, 20, 10, 20));
-            btn.setMaxWidth(Double.MAX_VALUE);
+            ButtonSlot btn = new ButtonSlot(time, false);
+            buttonSlots.add(btn);  // gives easy access to all the buttons in the grid
 
             // court -1 bc the parameter for court starts at 1 while the array starts at 0
             // indexOf(time)+1 bc the y coordinate of x,y in grid is the placeholder for the court number
@@ -106,10 +93,34 @@ public class CourtUI extends BorderPane implements ModelListener, IModelListener
         }
     }
 
-    public void setModel(Model model) {
+    /**
+     * fire() is invoked when a user gesture indicates that an event for this ButtonBase should occur.
+     * When a button is fired, the button's onAction event is involed
+     */
+    public void init() {
+        buttonSlots.get(0).fire();
     }
 
+    public void setModel(Model model) {}
+
+    public void setInteractionModel(InteractionModel iModel) {this.iModel = iModel;}
+
     public void setController(Controller controller) {
+        buttonSlots.forEach(b -> {
+            b.setOnAction(e -> {
+                b.selected = true;
+                controller.handleSlotClick(true);
+            });
+        });
+    }
+
+    @Override
+    public void iModelChanged() {
+        buttonSlots.forEach(b -> {
+            b.unselect();
+            // if the status of the button matches the imodel's change the color of the slot
+            if (b.selected == iModel.getSlotStatus()) b.select();
+        });
     }
 
     @Override
@@ -117,11 +128,5 @@ public class CourtUI extends BorderPane implements ModelListener, IModelListener
 
     }
 
-    public void setInteractionModel(InteractionModel iModel) {
-    }
 
-    @Override
-    public void iModelChanged() {
-
-    }
 }

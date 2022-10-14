@@ -37,6 +37,8 @@ public class MainUI extends StackPane {
 
         model.addSubscriber(courtView);
 
+        iModel.addSubscriber(courtView);
+
         // set up the layout
         AnchorPane.setTopAnchor(courtView, 40.0);
         AnchorPane.setLeftAnchor(courtView, 10.0);
@@ -46,5 +48,7 @@ public class MainUI extends StackPane {
         this.getChildren().add(root);
 
         this.setStyle("-fx-background-color: white;");
+
+        courtView.init();  // sets initial state of the button slots
     }
 }
