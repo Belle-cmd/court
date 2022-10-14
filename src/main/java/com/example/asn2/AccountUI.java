@@ -16,7 +16,7 @@ import javafx.stage.Window;
 
 import java.time.LocalDate;
 import java.util.Objects;
-public class AccountUI extends BorderPane {
+public class AccountUI extends BorderPane implements ModelListener, IModelListener {
     public Stage mainStage;
 
     // Use to reference adding layouts dynamically
@@ -72,5 +72,24 @@ public class AccountUI extends BorderPane {
         container.setStyle("-fx-background-color: rgb(237, 237, 237)");
         container.setMaxWidth(300.0);
         mainContent.getChildren().add(container);
+    }
+
+    public void setModel(Model model) {
+    }
+
+    @Override
+    public void modelChanged() {
+
+    }
+
+    @Override
+    public void iModelChanged() {
+        
+    }
+
+    public void setInteractionModel(InteractionModel iModel) {
+    }
+
+    public void setController(Controller controller) {
     }
 }

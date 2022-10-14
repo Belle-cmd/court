@@ -14,9 +14,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class LoginUI extends BorderPane implements ModelListener {
-     Model model;
-     Controller controller;
+public class LoginUI extends BorderPane implements ModelListener, IModelListener {
+     private Model model;
+     private Controller controller;
+     private InteractionModel iModel;
      Button signInBtn;
      Stage mainStage;
 
@@ -64,5 +65,14 @@ public class LoginUI extends BorderPane implements ModelListener {
 
     public void setController(Controller controller) {
         this.controller = controller;
+    }
+
+    public void setInteractionModel(InteractionModel iModel) {
+        this.iModel = iModel;
+    }
+
+    @Override
+    public void iModelChanged() {
+
     }
 }

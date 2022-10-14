@@ -8,20 +8,24 @@ public class MvcManager {
         AccountUI accountView = new AccountUI();
         Model model = new Model();
         Controller controller = new Controller();
+        InteractionModel iModel = new InteractionModel();
 
         // connect components
         controller.setModel(model);
+        controller.setInteractionModel(iModel);
 
         loginView.setModel(model);
-        model.addSubscriber(loginView);
+        loginView.setInteractionModel(iModel);
         loginView.setController(controller);
 
         courtView.setModel(model);
-        model.addSubscriber(courtView);
+        courtView.setInteractionModel(iModel);
         courtView.setController(controller);
 
-//        accountView.setModel(model);
-//        model.addSubscriber(accountView);
-//        accountView.setController(controller);
+        accountView.setModel(model);
+        accountView.setInteractionModel(iModel);
+        accountView.setController(controller);
+
+        model.addSubscriber(courtView);
     }
 }

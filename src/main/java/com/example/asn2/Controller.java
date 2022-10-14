@@ -13,4 +13,7 @@ public class Controller {
     }
 
     public void setModel(Model model) {this.model = model;}
+
+    public void setInteractionModel(InteractionModel iModel) {
+    }
 }

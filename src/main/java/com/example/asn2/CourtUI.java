@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class CourtUI extends BorderPane implements ModelListener {
+public class CourtUI extends BorderPane implements ModelListener, IModelListener {
 
     // grid used to store court slots
     private GridPane courtGrid;
@@ -141,6 +141,14 @@ public class CourtUI extends BorderPane implements ModelListener {
 
     @Override
     public void modelChanged() {
+
+    }
+
+    public void setInteractionModel(InteractionModel iModel) {
+    }
+
+    @Override
+    public void iModelChanged() {
 
     }
 }
