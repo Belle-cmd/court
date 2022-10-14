@@ -1,27 +1,21 @@
 package com.example.asn2;
 
-import javafx.geometry.Bounds;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-
-
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Objects;
+
+
 public class AccountUI extends BorderPane implements ModelListener, IModelListener {
     public Stage mainStage;
 
-    // Use to reference adding layouts dynamically
-    private VBox mainContent;
-    private final double MAX_FONT_SIZE = 30;
     public AccountUI() {
         Button backBtn = new Button();
         ImageView leftArrowImg = new ImageView(
@@ -39,40 +33,22 @@ public class AccountUI extends BorderPane implements ModelListener, IModelListen
         });
 
         // User's booked slots (main content of this page)
-        mainContent = new VBox(10);
-        mainContent.setAlignment(Pos.CENTER);
-        this.setCenter(mainContent);
-        this.setStyle("-fx-background-color: white");
-
-        addSlot("7:00 am", 2, "Monday");
-        addSlot("8:00 am", 1, "Tuesday");
-        addSlot("10:00 am", 6, "Wednesday");
-        addSlot("1:00 pm", 4, "Thursday");
-        addSlot("5:00 pm", 4, "Friday");
-
-
-
-    }
-
-    public void addSlot(String time, int courtNum, String week) {
-        VBox container = new VBox();
-        container.setPadding(new Insets(10));
-
-        Label courtLbl = new Label("Court " + courtNum);
-        courtLbl.setFont(new Font("Helvetica", 30));
-
-        Label timeLbl = new Label(week + " at " + time);
-        timeLbl.setFont(new Font("Helvetica", 15));
+        ArrayList<Slot> slotArray = new ArrayList<>();
 
         LocalDate date = LocalDate.now();
-        Label dateLbl = new Label(date.toString());
-        dateLbl.setFont(new Font("Helvetica", 15));
 
-        container.getChildren().addAll(courtLbl, dateLbl,timeLbl);
-        container.setStyle("-fx-background-color: rgb(237, 237, 237)");
-        container.setMaxWidth(300.0);
-        mainContent.getChildren().add(container);
+        slotArray.add(new Slot(date, date.getDayOfWeek(), 2, "7:00 am"));
+        slotArray.add(new Slot(date.plusDays(2), date.plusDays(2).getDayOfWeek(), 1, "10:00 am"));
+        slotArray.add(new Slot(date.plusDays(3), date.plusDays(3).getDayOfWeek(), 6, "11:00 am"));
+        slotArray.add(new Slot(date.plusDays(3), date.plusDays(3).getDayOfWeek(), 6, "1:00 pm"));
+        slotArray.add(new Slot(date.plusDays(3), date.plusDays(3).getDayOfWeek(), 6, "11:00 am"));
+        slotArray.add(new Slot(date.plusDays(3), date.plusDays(3).getDayOfWeek(), 6, "11:00 am"));
+
+        ObservableList<Slot> SlotObservableList = FXCollections.observableArrayList(slotArray);
+        ListView<Slot> slotListView = new ListView<>(SlotObservableList);
+        this.setCenter(slotListView);
     }
+
 
     public void setModel(Model model) {
     }
@@ -84,7 +60,7 @@ public class AccountUI extends BorderPane implements ModelListener, IModelListen
 
     @Override
     public void iModelChanged() {
-        
+
     }
 
     public void setInteractionModel(InteractionModel iModel) {
