@@ -25,18 +25,8 @@ public class AccountUI extends StackPane implements ModelListener, IModelListene
         titleLbl.setFont(new Font("Helvetica", 20));
 
         ArrayList<Slot> slotArray = new ArrayList<>();
-
-        LocalDate date = LocalDate.now();
-
-        slotArray.add(new Slot(date, date.getDayOfWeek(), 2, "7:00 am"));
-        slotArray.add(new Slot(date.plusDays(2), date.plusDays(2).getDayOfWeek(), 1, "10:00 am"));
-        slotArray.add(new Slot(date.plusDays(3), date.plusDays(3).getDayOfWeek(), 6, "11:00 am"));
-        slotArray.add(new Slot(date.plusDays(3), date.plusDays(3).getDayOfWeek(), 6, "1:00 pm"));
-        slotArray.add(new Slot(date.plusDays(3), date.plusDays(3).getDayOfWeek(), 6, "11:00 am"));
-        slotArray.add(new Slot(date.plusDays(3), date.plusDays(3).getDayOfWeek(), 6, "11:00 am"));
-
         ObservableList<Slot> SlotObservableList = FXCollections.observableArrayList(slotArray);
-        ListView<Slot> slotListView = new ListView<>(SlotObservableList);
+        ListView<Slot> slotListView = new ListView<>(SlotObservableList);  // stores the slots the user selected
 
         container.getChildren().addAll(titleLbl, slotListView);
         this.getChildren().addAll(container);

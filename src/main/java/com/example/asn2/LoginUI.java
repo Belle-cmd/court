@@ -24,7 +24,7 @@ public class LoginUI extends BorderPane implements ModelListener, IModelListener
         root.setSpacing(20);
         root.setPadding(new Insets(20, 100, 20, 100));
 
-        VBox textVBox = new VBox();
+        VBox textVBox = new VBox();  // store labels and text fields of the login page
         textVBox.setSpacing(10);
 
         Label nsidLbl = new Label("NSID (abc123)");
