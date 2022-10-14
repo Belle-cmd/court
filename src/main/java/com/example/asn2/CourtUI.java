@@ -108,7 +108,7 @@ public class CourtUI extends BorderPane implements ModelListener, IModelListener
     public void setController(Controller controller) {
         buttonSlots.forEach(b -> {
             b.setOnAction(e -> {
-                b.selected = true;
+                b.selected = !b.selected;  // enable chosen slots to be unselected
                 controller.handleSlotClick(true);
             });
         });
@@ -119,7 +119,11 @@ public class CourtUI extends BorderPane implements ModelListener, IModelListener
         buttonSlots.forEach(b -> {
             b.unselect();
             // if the status of the button matches the imodel's change the color of the slot
-            if (b.selected == iModel.getSlotStatus()) b.select();
+            if (b.selected == iModel.getSlotStatus()) {
+                b.select();
+            } else {
+                b.unselect();
+            }
         });
     }
 
