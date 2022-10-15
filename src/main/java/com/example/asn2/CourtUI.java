@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class CourtUI extends BorderPane implements ModelListener, IModelListener {
@@ -15,9 +16,13 @@ public class CourtUI extends BorderPane implements ModelListener, IModelListener
     // grid used to store court slots
     private GridPane courtGrid;
 
-    InteractionModel iModel;
+    private InteractionModel iModel;
 
-    ArrayList<ButtonSlot> buttonSlots;
+    private ArrayList<ButtonSlot> buttonSlots;
+
+    private Model model;
+
+    private DatePicker datePicker;
 
     public CourtUI() {
         // initialize to store button slots for easier access
@@ -26,7 +31,8 @@ public class CourtUI extends BorderPane implements ModelListener, IModelListener
         // setting up main layouts for the courts and date
         VBox mainContainer = new VBox();
         HBox dateContainer = new HBox();
-        DatePicker datePicker = new DatePicker();
+        datePicker = new DatePicker();
+        datePicker.setValue(LocalDate.now());
         dateContainer.getChildren().add(datePicker);
 
         courtGrid = new GridPane();  // store buttons
@@ -75,6 +81,7 @@ public class CourtUI extends BorderPane implements ModelListener, IModelListener
 
         for (String time : timeArray) {
             ButtonSlot btn = new ButtonSlot(time, false, false);
+            btn.setId("#" + courtNum);  // stores the name of the court the button belongs to
             buttonSlots.add(btn);  // gives easy access to all the buttons in the grid
 
             // court -1 bc the parameter for court starts at 1 while the array starts at 0
@@ -91,17 +98,20 @@ public class CourtUI extends BorderPane implements ModelListener, IModelListener
         buttonSlots.get(0).fire();
     }
 
-    public void setModel(Model model) {}
+    public void setModel(Model model) {this.model = model;}
 
     public void setInteractionModel(InteractionModel iModel) {this.iModel = iModel;}
 
     public void setController(Controller controller) {
+        // book a slot and change button colour
         buttonSlots.forEach(b -> {
             b.setOnAction(e -> {
                 // prevents the slots by other students to be overwritten by the user
                 if (!b.studentSelected) {
                     b.userSelected = !b.userSelected;  // enable chosen slots to be unselected
+                    LocalDate date = datePicker.getValue();
                     controller.handleSlotClick(true);
+                    controller.handleSlotStorage(date, Character.getNumericValue(b.getId().charAt(1)), b.getText());
                 }
             });
         });
@@ -135,5 +145,6 @@ public class CourtUI extends BorderPane implements ModelListener, IModelListener
     }
 
     @Override
-    public void modelChanged() {}
+    public void modelChanged() {
+    }
 }

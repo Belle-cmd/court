@@ -16,7 +16,11 @@ import java.util.Objects;
 
 
 public class AccountUI extends StackPane implements ModelListener, IModelListener {
-    public Stage mainStage;
+    private ListView<Slot> slotListView;
+
+    private Model model;
+
+    private InteractionModel interactionModel;
 
     public AccountUI() {
         // User's booked slots (main content of this page)
@@ -26,7 +30,7 @@ public class AccountUI extends StackPane implements ModelListener, IModelListene
 
         ArrayList<Slot> slotArray = new ArrayList<>();
         ObservableList<Slot> SlotObservableList = FXCollections.observableArrayList(slotArray);
-        ListView<Slot> slotListView = new ListView<>(SlotObservableList);  // stores the slots the user selected
+        slotListView = new ListView<>(SlotObservableList);  // stores the slots the user selected
 
         container.getChildren().addAll(titleLbl, slotListView);
         this.getChildren().addAll(container);
@@ -34,11 +38,12 @@ public class AccountUI extends StackPane implements ModelListener, IModelListene
 
 
     public void setModel(Model model) {
+        this.model = model;
     }
 
     @Override
     public void modelChanged() {
-
+        slotListView.getItems().addAll(model.slotArrayList);  // populate the list view
     }
 
     @Override
@@ -47,8 +52,10 @@ public class AccountUI extends StackPane implements ModelListener, IModelListene
     }
 
     public void setInteractionModel(InteractionModel iModel) {
+        this.interactionModel = iModel;
     }
 
     public void setController(Controller controller) {
+
     }
 }

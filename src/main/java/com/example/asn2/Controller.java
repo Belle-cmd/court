@@ -1,5 +1,7 @@
 package com.example.asn2;
 
+import java.time.LocalDate;
+
 public class Controller {
     Model model;
 
@@ -23,6 +25,16 @@ public class Controller {
     public void handleSlotClick(boolean btnStatus) {
         iModel.setSlotStatus(btnStatus);
         }
+
+    /**
+     * Stores the slot the user just booked into the model
+     * @param date date the slot is created
+     * @param courtNum the court the slot belongs to
+     * @param time the time of the slot to be booked
+     */
+    public void handleSlotStorage(LocalDate date, int courtNum, String time) {
+        model.setBookedSlots(new Slot(date, date.getDayOfWeek(), courtNum, time));
+    }
 
     public void handleDummySlot(boolean btnStatus) {
         iModel.setDummySlotStatus(btnStatus);

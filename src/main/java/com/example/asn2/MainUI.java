@@ -36,6 +36,7 @@ public class MainUI extends StackPane {
         accountView.setController(controller);
 
         model.addSubscriber(courtView);
+        model.addSubscriber(accountView);
 
         iModel.addSubscriber(courtView);
 
