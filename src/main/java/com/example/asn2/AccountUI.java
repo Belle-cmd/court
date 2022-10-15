@@ -2,17 +2,11 @@ package com.example.asn2;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Objects;
 
 
 public class AccountUI extends StackPane implements ModelListener, IModelListener {
@@ -43,6 +37,7 @@ public class AccountUI extends StackPane implements ModelListener, IModelListene
 
     @Override
     public void modelChanged() {
+        slotListView.getItems().clear();
         slotListView.getItems().addAll(model.slotArrayList);  // populate the list view
     }
 

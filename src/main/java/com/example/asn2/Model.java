@@ -1,5 +1,7 @@
 package com.example.asn2;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Model {
@@ -22,6 +24,11 @@ public class Model {
 
     public void setBookedSlots(Slot slot) {
         slotArrayList.add(slot);
+        notifySubscribers();
+    }
+
+    public void removeBooking(Slot slot) {
+        slotArrayList.remove(slot);
         notifySubscribers();
     }
 }

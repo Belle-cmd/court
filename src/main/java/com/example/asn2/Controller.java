@@ -26,6 +26,12 @@ public class Controller {
         iModel.setSlotStatus(btnStatus);
         }
 
+    public void handleSlotRemoval(boolean selectedStatus, LocalDate date, int courtNum, String time) {
+        if (!selectedStatus) {
+            model.removeBooking(new Slot(date, date.getDayOfWeek(), courtNum, time));
+        }
+    }
+
     /**
      * Stores the slot the user just booked into the model
      * @param date date the slot is created

@@ -111,6 +111,8 @@ public class CourtUI extends BorderPane implements ModelListener, IModelListener
                     b.userSelected = !b.userSelected;  // enable chosen slots to be unselected
                     LocalDate date = datePicker.getValue();
                     controller.handleSlotClick(true);
+                    controller.handleSlotRemoval(b.userSelected, date,
+                            Character.getNumericValue(b.getId().charAt(1)), b.getText());
                     controller.handleSlotStorage(date, Character.getNumericValue(b.getId().charAt(1)), b.getText());
                 }
             });
