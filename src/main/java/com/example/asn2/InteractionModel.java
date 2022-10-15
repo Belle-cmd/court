@@ -3,8 +3,12 @@ package com.example.asn2;
 import java.util.ArrayList;
 
 public class InteractionModel {
-
+    // if true, the button is booked by the user and its colour should be green
     private boolean buttonStatus;
+
+    // if true, the button is booked by another student and its colour should be red
+    private boolean studentStatus;
+
     private ArrayList<IModelListener> subscribers;
 
     /**
@@ -30,7 +34,16 @@ public class InteractionModel {
         notifySubscribers();
     }
 
+    public void setDummySlotStatus(boolean status) {
+        studentStatus = status;
+        notifySubscribers();
+    }
+
     public boolean getSlotStatus() {
         return buttonStatus;
+    }
+
+    public boolean getStudentStatus() {
+        return studentStatus;
     }
 }

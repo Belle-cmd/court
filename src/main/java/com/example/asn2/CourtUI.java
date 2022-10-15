@@ -1,21 +1,14 @@
 package com.example.asn2;
 
-import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class CourtUI extends BorderPane implements ModelListener, IModelListener {
 
@@ -40,6 +33,7 @@ public class CourtUI extends BorderPane implements ModelListener, IModelListener
         courtGrid.setHgap(25);
         courtGrid.setPadding(new Insets(50,0,50,0));
 
+        // create empty slots for each court
         this.populateCourt(1);
         this.populateCourt(2);
         this.populateCourt(3);
@@ -47,16 +41,12 @@ public class CourtUI extends BorderPane implements ModelListener, IModelListener
         this.populateCourt(5);
         this.populateCourt(6);
 
-
         dateContainer.setAlignment(Pos.TOP_CENTER);
         courtGrid.setAlignment(Pos.BOTTOM_CENTER);
         mainContainer.getChildren().addAll(dateContainer, courtGrid);
         this.setCenter(mainContainer);
         this.setStyle("-fx-background-color: white");
-
-
     }
-
 
     /**
      * Populate the grid based on the specified court number
@@ -84,7 +74,7 @@ public class CourtUI extends BorderPane implements ModelListener, IModelListener
         GridPane.setHalignment(courtName, HPos.RIGHT);
 
         for (String time : timeArray) {
-            ButtonSlot btn = new ButtonSlot(time, false);
+            ButtonSlot btn = new ButtonSlot(time, false, false);
             buttonSlots.add(btn);  // gives easy access to all the buttons in the grid
 
             // court -1 bc the parameter for court starts at 1 while the array starts at 0
@@ -108,19 +98,36 @@ public class CourtUI extends BorderPane implements ModelListener, IModelListener
     public void setController(Controller controller) {
         buttonSlots.forEach(b -> {
             b.setOnAction(e -> {
-                b.selected = !b.selected;  // enable chosen slots to be unselected
-                controller.handleSlotClick(true);
+                // prevents the slots by other students to be overwritten by the user
+                if (!b.studentSelected) {
+                    b.userSelected = !b.userSelected;  // enable chosen slots to be unselected
+                    controller.handleSlotClick(true);
+                }
             });
         });
+
+        // randomly populate some slots with dummy data representing other students
+        int min = 0;
+        int max = buttonSlots.size()-1;
+        int range = max - min + 1;
+        for (int i = 0; i<15; i++) {
+            int rand = (int)(Math.random() * range) + min;
+            ButtonSlot b = buttonSlots.get(rand);
+            b.userSelected = false;  // must set to false so that the button colour can be set to red
+            b.studentSelected = true;
+            controller.handleDummySlot(true);
+        }
     }
 
     @Override
     public void iModelChanged() {
         buttonSlots.forEach(b -> {
             b.unselect();
-            // if the status of the button matches the imodel's change the color of the slot
-            if (b.selected == iModel.getSlotStatus()) {
+            // if the status of the button matches the imodel's data, change the color of the slot
+            if (b.userSelected == iModel.getSlotStatus()) {
                 b.select();
+            } else if (b.studentSelected == iModel.getStudentStatus()) {
+                b.selectOtherStudent();
             } else {
                 b.unselect();
             }
@@ -128,9 +135,5 @@ public class CourtUI extends BorderPane implements ModelListener, IModelListener
     }
 
     @Override
-    public void modelChanged() {
-
-    }
-
-
+    public void modelChanged() {}
 }

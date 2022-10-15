@@ -8,7 +8,7 @@ public class Application extends javafx.application.Application {
     public void start(Stage stage) {
         LoginUI root = new LoginUI();
         root.mainStage = stage;
-        Scene scene = new Scene(root, 750, 700);
+        Scene scene = new Scene(root, 920, 500);
         stage.setTitle("Assignment 2");
         stage.setScene(scene);
         stage.show();

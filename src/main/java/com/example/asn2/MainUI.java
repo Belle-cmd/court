@@ -41,9 +41,9 @@ public class MainUI extends StackPane {
 
         // set up the layout
         AnchorPane.setTopAnchor(courtView, 40.0);
-        AnchorPane.setLeftAnchor(courtView, 10.0);
-        AnchorPane.setRightAnchor(accountView, 10.0);
-        AnchorPane.setTopAnchor(accountView, 10.0);
+        AnchorPane.setLeftAnchor(courtView, 20.0);
+        AnchorPane.setRightAnchor(accountView, 20.0);
+        AnchorPane.setTopAnchor(accountView, 20.0);
         root.getChildren().addAll(courtView, accountView);
         this.getChildren().add(root);
 

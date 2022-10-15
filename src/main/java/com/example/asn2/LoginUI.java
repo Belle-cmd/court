@@ -42,7 +42,7 @@ public class LoginUI extends BorderPane implements ModelListener, IModelListener
         signInBtn.setOnAction(e -> {
             MainUI main = new MainUI();
             main.mainStage = mainStage;
-            Scene courtScene = new Scene(main,  750, 700);
+            Scene courtScene = new Scene(main,  920, 500);
             mainStage.setScene(courtScene);
         });
 

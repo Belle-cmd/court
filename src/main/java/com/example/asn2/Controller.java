@@ -23,4 +23,8 @@ public class Controller {
     public void handleSlotClick(boolean btnStatus) {
         iModel.setSlotStatus(btnStatus);
         }
+
+    public void handleDummySlot(boolean btnStatus) {
+        iModel.setDummySlotStatus(btnStatus);
+    }
 }
