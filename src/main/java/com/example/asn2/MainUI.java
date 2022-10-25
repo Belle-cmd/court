@@ -1,15 +1,14 @@
 package com.example.asn2;
 
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.geometry.Pos;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class MainUI extends StackPane {
     Stage mainStage;
 
     public MainUI() {
-        AnchorPane root = new AnchorPane();
+        BorderPane root = new BorderPane();
 
         // create MVC components
         LoginUI loginView = new LoginUI();
@@ -41,11 +40,10 @@ public class MainUI extends StackPane {
         iModel.addSubscriber(courtView);
 
         // set up the layout
-        AnchorPane.setTopAnchor(courtView, 40.0);
-        AnchorPane.setLeftAnchor(courtView, 20.0);
-        AnchorPane.setRightAnchor(accountView, 20.0);
-        AnchorPane.setTopAnchor(accountView, 20.0);
-        root.getChildren().addAll(courtView, accountView);
+        BorderPane.setAlignment(courtView, Pos.CENTER);
+        root.setCenter(courtView);
+        BorderPane.setAlignment(accountView, Pos.CENTER_RIGHT);
+        root.setRight(accountView);
         this.getChildren().add(root);
 
         this.setStyle("-fx-background-color: white;");
